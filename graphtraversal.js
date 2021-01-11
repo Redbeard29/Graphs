@@ -83,8 +83,25 @@ class Graph{
         }
         return result;
     }
-    BFS(vertex){
+    BFS(start){
+        var queue = [start];
+        var result = [];
+        var visited = {};
+        var currentVertex;
+        visited[start] = true;
 
+        while(queue.length){
+            currentVertex = queue.shift();
+            result.push(currentVertex);
+
+            this.adjacencyList[currentVertex].forEach(neighbor => {
+                if(!visited[neighbor]){
+                    visited[neighbor] = true;
+                    queue.push(neighbor);
+                }
+            });
+        }
+        return result;
     }
 }
 
@@ -105,4 +122,4 @@ myGraph.addEdge("D", "E");
 myGraph.addEdge("D", "F");
 myGraph.addEdge("E", "F");
 
-console.log(myGraph.DFSIterative("D"));
+console.log(myGraph.BFS("A"));
